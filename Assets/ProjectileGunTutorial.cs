@@ -89,13 +89,13 @@ public class ProjectileGunTutorial : MonoBehaviour
 
         //check if ray hits something
         Vector3 targetPoint;
-        if (Physics.Raycast(ray, out hit))
+        /*if (Physics.Raycast(ray, out hit))
             targetPoint = hit.point;
         else
-            targetPoint = ray.GetPoint(75); //Just a point far away from the player
+            targetPoint = ray.GetPoint(75); //Just a point far away from the player*/
 
         //Calculate direction from attackPoint to targetPoint
-        Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
+        Vector3 directionWithoutSpread = ray.GetPoint(75) - attackPoint.position;
 
         //Calculate spread
         float x = Random.Range(-spread, spread);
@@ -105,7 +105,13 @@ public class ProjectileGunTutorial : MonoBehaviour
         Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0); //Just add spread to last direction
 
         //Instantiate bullet/projectile
-        GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity); //store instantiated bullet in currentBullet
+        GameObject currentBullet = ObjectPool.SharedInstance.GetPooledObject();
+        if (bullet != null)
+        {
+            currentBullet.transform.position = attackPoint.transform.position;
+            currentBullet.transform.rotation = gameObject.transform.rotation;
+            currentBullet.SetActive(true);
+        }
         //Rotate bullet to shoot direction
         currentBullet.transform.forward = directionWithSpread.normalized;
 
