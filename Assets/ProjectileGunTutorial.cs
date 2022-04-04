@@ -106,18 +106,15 @@ public class ProjectileGunTutorial : MonoBehaviour
 
         //Instantiate bullet/projectile
         GameObject currentBullet = ObjectPool.SharedInstance.GetPooledObject();
-        if (bullet != null)
+        if (currentBullet != null)
         {
             currentBullet.transform.position = attackPoint.transform.position;
             currentBullet.transform.rotation = gameObject.transform.rotation;
             currentBullet.SetActive(true);
+            currentBullet.transform.forward = directionWithSpread.normalized;
+            currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
+            currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
         }
-        //Rotate bullet to shoot direction
-        currentBullet.transform.forward = directionWithSpread.normalized;
-
-        //Add forces to bullet
-        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
-        currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
 
         //Instantiate muzzle flash, if you have one
         if (muzzleFlash != null)

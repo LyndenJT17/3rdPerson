@@ -267,7 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pooledObjects: []
   objectToPool: {fileID: 629202949276328067, guid: 6fba78f7058386d40b969e0aaea42c25, type: 3}
-  amountToPool: 100
+  amountToPool: 10
 --- !u!4 &546063801
 Transform:
   m_ObjectHideFlags: 0
@@ -336,7 +336,7 @@ MonoBehaviour:
   magazineSize: 100
   bulletsPerTap: 1
   allowButtonHold: 0
-  playerRb: {fileID: 0}
+  playerRb: {fileID: 386691548}
   recoilForce: 0
   fpsCam: {fileID: 963194227}
   attackPoint: {fileID: 702168442}
