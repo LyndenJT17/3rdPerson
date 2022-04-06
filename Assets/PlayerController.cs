@@ -14,7 +14,17 @@ public class PlayerController : MonoBehaviour
 	float speedSmoothVelocity;
 	float currentSpeed;
 
-	
+	public float gravity = -9.8f;
+	public float jumpHeight = 3f;
+	public Transform groundCheck;
+	public float groundDistance = 0.4f;
+	public LayerMask groundMask;
+
+	bool isGrounded;
+	Vector3 velocity;
+
+	public Rigidbody playerBody;
+
 	Transform cameraT;
 
 	void Start()
@@ -42,7 +52,19 @@ public class PlayerController : MonoBehaviour
 		transform.Translate(transform.forward * currentSpeed * Time.deltaTime, Space.World);
 
 		float animationSpeedPercent = ((running) ? 1 : .5f) * inputDir.magnitude;
-		
 
+		isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+		if (isGrounded && velocity.y < 0)
+		{
+			velocity.y = -2f;
+		}
+		if (Input.GetButtonDown("Jump") && isGrounded)
+		{
+			Debug.Log("Jump Pressed");
+			velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+		}
+		velocity.y += gravity * Time.deltaTime;
+		playerBody.velocity = velocity;
+		//controller.Move(velocity * Time.deltaTime);
 	}
 }
