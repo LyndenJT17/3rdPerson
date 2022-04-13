@@ -7,8 +7,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     GameObject ebullet;
 
-    float fireRate;
-    float nextFire;
+    public float fireRate;
+    public float nextFire;
 
     public void Start()
     {
