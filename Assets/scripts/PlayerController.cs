@@ -1,8 +1,10 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
 {
+	public List<string> items;
+	public ProjectileGunTutorial gunStats;
 
 	public float walkSpeed = 2;
 	public float runSpeed = 6;
@@ -29,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
 	void Start()
 	{
-		
+		items = new List<string>();
 		cameraT = Camera.main.transform;
 	}
 
@@ -67,4 +69,17 @@ public class PlayerController : MonoBehaviour
 		playerBody.velocity = velocity;
 		//controller.Move(velocity * Time.deltaTime);
 	}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Collectable"))
+        {
+			string itemType = other.gameObject.GetComponent<ItemCollectable>().itemType;
+			items.Add(itemType);
+			Destroy(other.gameObject);
+
+			gunStats.gunUpgrade();
+        }
+    }
+
 }
