@@ -47,11 +47,13 @@ public class bullet : MonoBehaviour
 
     private void destroyBullet()
     {
-        Collider[] enemies = Physics.OverlapSphere(transform.position, whatIsEnemies);
+        Collider[] enemies = Physics.OverlapSphere(transform.position, 1f, whatIsEnemies);
+        print("Something");
         for (int i = 0; i < enemies.Length; i++)
         {
             //UNCOMMENT THIS ONCE A HEALTH SCRIPT IS MADE!!!!
-            //enemies[i].GetComponent<Health>().TakeDamage(bulletDamage);
+            print(enemies[i].gameObject.name);
+            enemies[i].GetComponentInChildren<GameHandler>().damage(bulletDamage);
         }
 
         Invoke("Delay", 0.05f);
@@ -69,7 +71,7 @@ public class bullet : MonoBehaviour
 
         collisions++;
 
-        if (collision.collider.CompareTag("Enemy")) destroyBullet();
+        destroyBullet();
     }
 
     private void Setup()
