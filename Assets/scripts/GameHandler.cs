@@ -6,13 +6,19 @@ public class GameHandler : MonoBehaviour
 {
 
     public HealthBar healthBar;
+    Health healthSystem;
 
     // Start is called before the first frame update
     void Start()
     {
-        Health healthSystem = new Health(100);
+        healthSystem = new Health(100);
         healthBar.Setup(healthSystem);
 
+    }
+
+    public void damage(int damage)
+    {
+        healthSystem.Damage(damage);
     }
 
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Health
+public class Health : MonoBehaviour
 {
     public event EventHandler OnHealthChanged;
     private int health;
@@ -12,6 +12,7 @@ public class Health
     public Health(int health)
     {
         this.health = health;
+        this.healthMax = health;
     }
 
     public int GetHealth()
@@ -27,6 +28,7 @@ public class Health
     public void Damage(int damageAmount)
     {
         health -= damageAmount;
+        print("Damage Taken");
         if (health < 0)
         {
             health = 0;
