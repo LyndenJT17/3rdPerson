@@ -12,8 +12,8 @@ public class bulletpattern2 : MonoBehaviour
     }
     private void Fire()
     {
-        float bulDirX = transform.position.x + Mathf.Sin((angle * Mathf.PI) / 180f);
-        float bulDirY = transform.position.y + Mathf.Cos((angle * Mathf.PI) / 180f);
+        float bulDirX = transform.rotation.eulerAngles.x + Mathf.Sin((angle * Mathf.PI) / 180f);
+        float bulDirY = transform.rotation.eulerAngles.y + Mathf.Cos((angle * Mathf.PI) / 180f);
 
         Vector3 bulMoveVector = new Vector3(bulDirX, bulDirY, 0f);
         Vector2 bulDir = (bulMoveVector - transform.position).normalized;
@@ -29,5 +29,22 @@ public class bulletpattern2 : MonoBehaviour
     void Update()
     {
         
+    }
+
+
+    private void OLDFire()
+    {
+        float bulDirX = transform.position.x + Mathf.Sin((angle * Mathf.PI) / 180f);
+        float bulDirY = transform.position.y + Mathf.Cos((angle * Mathf.PI) / 180f);
+
+        Vector3 bulMoveVector = new Vector3(bulDirX, bulDirY, 0f);
+        Vector2 bulDir = (bulMoveVector - transform.position).normalized;
+
+        GameObject bul = BulletPool.bulletPoolInstanse.GetBullet();
+        bul.transform.position = transform.position;
+        bul.transform.rotation = transform.rotation;
+        bul.SetActive(true);
+        bul.GetComponent<Bullet>().SetMoveDirection(bulDir);
+        angle += 10f;
     }
 }

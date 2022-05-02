@@ -24,11 +24,10 @@ public class FireBullets : MonoBehaviour
 
         for (int i = 0; i < bulletsAmount + 1; i++)
         {
-            float bulDirX = transform.position.x + Mathf.Sin((angle * Mathf.PI) / 180f);
-            float bulDirY = transform.position.y + Mathf.Cos((angle * Mathf.PI) / 180f);
+            print("forward " + transform.rotation.eulerAngles);
+            float bulDirX = transform.rotation.eulerAngles.x + Mathf.Sin((angle * Mathf.PI) / 180f);
+            float bulDirY = transform.rotation.eulerAngles.y + Mathf.Cos((angle * Mathf.PI) / 180f);
             
-
-
             Vector3 bulMoveVector = new Vector3(bulDirX, bulDirY, 0f);
             Vector2 bulDir = (bulMoveVector - transform.position).normalized;
 
@@ -37,8 +36,12 @@ public class FireBullets : MonoBehaviour
             bul.transform.rotation = transform.rotation;
             bul.SetActive(true);
             bul.GetComponent<Bullet>().SetMoveDirection(bulDir);
+
+            //bul.GetComponent<Bullet>().SetMoveDirection(transform.rotation.eulerAngles);
             angle += angleStep;
         }
+
+
     }
     // Update is called once per frame
     void Update()

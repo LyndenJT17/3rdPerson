@@ -6,11 +6,11 @@ public class LookAt : MonoBehaviour
 {
     public Transform target;
     public float speed = 5f;
-    PlayerController target;
+    //PlayerController target;
     // Start is called before the first frame update
     void Start()
     {
-        target = GameObject.FindObjectOfType<PlayerController>();
+        //target = GameObject.FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -18,7 +18,7 @@ public class LookAt : MonoBehaviour
     {
         Vector3 direction = target.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Lerp(transform, rotation, speed * Time)
-
+        //transform.rotation = Quaternion.Lerp(transform.rotation, rotation, speed * Time.deltaTime);
+        transform.rotation = rotation;
     }
 }
